@@ -1,26 +1,23 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
+  tandb:
+    image: mysql:8.0
+    container_name: tandbc1
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: testdb
+
+  tanflaskwebapp:
+    image: tanflask:webappv1
+    build: . #location of dockerfile and . means current location
     ports:
-      - "5000:5000"
+      - "3030:5000"
     environment:
       FLASK_ENV: development
-      MYSQL_HOST: db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: example
+      MYSQL_HOST: tandb #db server name
+      MYSQL_USER: root # db user name
+      MYSQL_PASSWORD: example # db user password
       MYSQL_DATABASE: testdb
     depends_on:
-      - db
-
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: Example12345
-      MYSQL_DATABASE: testdb
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-volumes:
-  mysql_data:
+      - tandb
