@@ -7,7 +7,7 @@ pipeline {
                 // using echo to print msg
                 echo 'we are now fetching the code from git repo'
                 // using git to download git repo
-                Git branch:'main', url:'https://github.com/tancse/tan_flaskmysql.git'
+                git branch:'main', url:'https://github.com/tancse/tan_flaskmysql.git'
                 // using sh command to run some commands
                 sh 'ls'
             }
